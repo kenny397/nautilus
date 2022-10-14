@@ -24,7 +24,7 @@ class JpaNotificationRepository(
         notificationEntityRepository.deleteById(id)
     }
 
-    override fun findDisplayNotificationByApp(app: com.jun.nautilus.domain.App): List<Notification> {
+    override fun findDisplayNotificationByApp(app: App): List<Notification> {
 
         return notificationEntityRepository
             .findDisplayNotificationByApp(app.id, true,Instant.now())

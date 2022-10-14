@@ -29,7 +29,7 @@ class NotificationRepositoryImpl: NotificationRepository {
         notifications.removeIf { it.id == id }
     }
 
-    override fun findDisplayNotificationByApp(app: com.jun.nautilus.domain.App): List<Notification> {
+    override fun findDisplayNotificationByApp(app: App): List<Notification> {
         return notifications
             .filter { it.app.id == app.id }
             .filter { it.display() }

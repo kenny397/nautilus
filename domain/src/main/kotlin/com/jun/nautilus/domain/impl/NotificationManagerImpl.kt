@@ -8,7 +8,7 @@ class NotificationManagerImpl(
     private val notificationRepository: NotificationRepository,
 ) : NotificationManager {
 
-    override fun create(title: String, content: String, publishedAt: Instant, app: com.jun.nautilus.domain.App): Notification {
+    override fun create(title: String, content: String, publishedAt: Instant, app: App): Notification {
 
         return notificationRepository.save(
             NotificationImpl(

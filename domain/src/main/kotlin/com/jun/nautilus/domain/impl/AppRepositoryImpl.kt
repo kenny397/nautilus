@@ -6,9 +6,9 @@ import com.jun.nautilus.domain.User
 
 class AppRepositoryImpl: AppRepository {
 
-    private val apps: MutableList<com.jun.nautilus.domain.App> = mutableListOf()
+    private val apps: MutableList<App> = mutableListOf()
 
-    override fun save(app: com.jun.nautilus.domain.App): com.jun.nautilus.domain.App {
+    override fun save(app: App): App {
         return findById(app.id)
             ?. let{
                 apps.remove(it)
@@ -21,7 +21,7 @@ class AppRepositoryImpl: AppRepository {
             }
     }
 
-    override fun findById(appId: String): com.jun.nautilus.domain.App? {
+    override fun findById(appId: String):App? {
         return apps.find { it.id == appId }
     }
 
@@ -29,7 +29,7 @@ class AppRepositoryImpl: AppRepository {
         apps.removeIf { it.id == id }
     }
 
-    override fun findByUser(user: User): List<com.jun.nautilus.domain.App> {
+    override fun findByUser(user: User): List<App> {
         return apps.filter { it.owners.find { o -> o.id == user.id } !=null }
     }
 }

@@ -13,7 +13,7 @@ interface NotificationManager {
      *
      * TODO 시간 타입 가나다라. Instant, unix epoch
      */
-    fun create(title: String, content: String, publishedAt: Instant, app: com.jun.nautilus.domain.App): Notification
+    fun create(title: String, content: String, publishedAt: Instant, app: App): Notification
 
     /**
      * 공지사항 단일 조회

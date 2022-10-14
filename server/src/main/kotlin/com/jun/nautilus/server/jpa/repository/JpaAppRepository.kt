@@ -12,11 +12,11 @@ class JpaAppRepository (
     private val appEntityRepository: AppEntityRepository,
     private val ownerEntityRepository: OwnerEntityRepository
         ): AppRepository{
-    override fun save(app: com.jun.nautilus.domain.App): com.jun.nautilus.domain.App {
+    override fun save(app: App): App {
         return appEntityRepository.save(from(app)).toModel()
     }
 
-    override fun findById(appId: String): com.jun.nautilus.domain.App? {
+    override fun findById(appId: String): App? {
         return appEntityRepository.findById(appId).orElse(null)
             ?.let { it.toModel() }
     }
@@ -25,7 +25,7 @@ class JpaAppRepository (
         appEntityRepository.deleteById(appId)
     }
 
-    override fun findByUser(user: User): List<com.jun.nautilus.domain.App> {
+    override fun findByUser(user: User): List<App> {
         return ownerEntityRepository.findByUser(UserEntity.from(user)).map { appEntityRepository.findById(it.appId).get().toModel() }.toList()
     }
 

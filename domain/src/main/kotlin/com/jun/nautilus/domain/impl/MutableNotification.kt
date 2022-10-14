@@ -18,14 +18,14 @@ internal interface MutableNotification: Notification{
 
     override var active: Boolean
 
-    override val app: com.jun.nautilus.domain.App
+    override val app: App
 }
 internal class MutableNotificationImpl(
     override val id: String,
     override var title: String,
     override var content: String,
     override var publishedAt: Instant,
-    override val app: com.jun.nautilus.domain.App,
+    override val app: App,
     override var active: Boolean,
     override val createdAt: Instant
 ): MutableNotification, Notification.Base(){

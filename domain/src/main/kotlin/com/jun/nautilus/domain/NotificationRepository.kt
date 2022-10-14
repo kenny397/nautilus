@@ -20,7 +20,7 @@ interface NotificationRepository {
      * Notification 삭제
      */
     fun deleteById(id: String)
-    fun findDisplayNotificationByApp(app: com.jun.nautilus.domain.App): List<Notification>
+    fun findDisplayNotificationByApp(app: App): List<Notification>
 
     fun findDisplayNotificationByApp(appId: String): List<Notification>
 

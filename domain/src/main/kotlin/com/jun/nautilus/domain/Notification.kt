@@ -49,7 +49,7 @@ interface Notification {
     /**
      * 공지사항이 작성된 앱
      */
-    val app: com.jun.nautilus.domain.App
+    val app: App
 
 
     fun display(): Boolean{

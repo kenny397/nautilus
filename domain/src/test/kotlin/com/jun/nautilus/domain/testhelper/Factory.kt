@@ -16,13 +16,13 @@ fun anApp(
     id: String = "testAppId",
     name: String = "testApp",
     owners: Set<User> = setOf<User>(anUser())
-): com.jun.nautilus.domain.App = TestApp(id,name, owners)
+): App = TestApp(id,name, owners)
 
 private data class TestApp(
     override val id: String,
     override val name: String,
     override val owners: Set<User>
-): com.jun.nautilus.domain.App
+): App
 
 
 fun anUser(
@@ -54,7 +54,7 @@ fun anNotification(
     title: String = "testTitle",
     content: String = "testContent",
     publishedAt: Instant = Instant.now(),
-    app: com.jun.nautilus.domain.App = anApp(),
+    app: App = anApp(),
     active: Boolean = true
 ): Notification = TestNotification(id,title, content, publishedAt, app, active)
 private data class TestNotification(
@@ -62,7 +62,7 @@ private data class TestNotification(
     override val title: String,
     override val content: String,
     override val publishedAt: Instant,
-    override val app: com.jun.nautilus.domain.App,
+    override val app: App,
     override val active: Boolean
 ): Notification{
     override val createdAt: Instant = Instant.now()

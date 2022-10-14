@@ -23,9 +23,9 @@ interface App {
     /**
      * 앱 관리자들
      */
-    val owners: Set<com.jun.nautilus.domain.User>
+    val owners: Set<User>
 
-    fun isOwner(user: com.jun.nautilus.domain.User): Boolean{
+    fun isOwner(user: User): Boolean{
         return owners.find { it == user }
             ?.let {true}
             ?:false
@@ -36,12 +36,12 @@ interface App {
             ?:false
     }
 
-    abstract class Base : com.jun.nautilus.domain.App {
+    abstract class Base : App {
       final override fun hashCode(): Int {
             return id.hashCode()
       }
       final override fun equals(other: Any?): Boolean {
-          return other is com.jun.nautilus.domain.App
+          return other is App
                   && other.id == id
         }
     }

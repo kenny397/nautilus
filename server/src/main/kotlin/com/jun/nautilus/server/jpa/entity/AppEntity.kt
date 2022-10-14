@@ -17,7 +17,7 @@ class AppEntity (
     val owners: MutableSet<OwnerEntity> = mutableSetOf()
 
 ){
-    fun toModel(): com.jun.nautilus.domain.App {
+    fun toModel(): App {
         return AppImpl(
             id = id,
             name = name,
@@ -25,7 +25,7 @@ class AppEntity (
         )
     }
     companion object{
-        fun from(app: com.jun.nautilus.domain.App): AppEntity {
+        fun from(app: App): AppEntity {
             return AppEntity(
                 id = app.id,
                 name = app.name,
