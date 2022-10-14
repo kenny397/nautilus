@@ -16,7 +16,7 @@ interface AuthenticatorTest {
         val id = "111"
         val email ="test@test.com"
         val password = "test"
-        authManager.register(id,email,password)
+        authManager.create(id,email,password)
 
         //when
         val result=sut.authenticate(email, password)
@@ -32,7 +32,7 @@ interface AuthenticatorTest {
         val email ="test@test.com"
         val password = "test"
         val wrongPassword = "test2"
-        authManager.register(id,email,password)
+        authManager.create(id,email,password)
 
         //when
         val result=sut.authenticate(email, wrongPassword)

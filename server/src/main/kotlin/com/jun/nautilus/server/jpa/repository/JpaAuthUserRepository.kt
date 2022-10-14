@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository
 class JpaAuthUserRepository(
     private val authUserEntityRepository: AuthUserEntityRepository
 ): AuthRepository {
-    override fun save(authUser: AuthUser): AuthUser {
-        return authUserEntityRepository.save(from(authUser)).toModel()
+    override fun save(authUser: AuthUser) {
+        authUserEntityRepository.save(from(authUser)).toModel()
     }
 
     override fun findByEmail(email: String): AuthUser? {

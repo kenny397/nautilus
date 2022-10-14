@@ -7,9 +7,8 @@ class AuthRepositoryImpl: AuthRepository {
 
     private val authUsers: MutableList<AuthUser> = mutableListOf()
 
-    override fun save(authUser: AuthUser): AuthUser {
+    override fun save(authUser: AuthUser) {
         authUsers.add(authUser)
-        return authUser
     }
 
     override fun findByEmail(email: String): AuthUser? {

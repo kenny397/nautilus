@@ -17,7 +17,7 @@ internal class AuthenticatorImplTest: AuthenticatorTest{
     @BeforeEach
     fun setUp(){
         authRepository=AuthRepositoryImpl()
-        authManager= AuthManagerImpl(AuthFactoryImpl(),authRepository,Sha256Encoder())
+        authManager= AuthManagerImpl(authRepository,Sha256Encoder())
         sut= AuthenticatorImpl(authRepository,Sha256Encoder())
 
     }

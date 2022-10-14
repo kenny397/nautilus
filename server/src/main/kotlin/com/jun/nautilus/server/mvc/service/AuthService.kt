@@ -1,6 +1,7 @@
 package com.jun.nautilus.server.mvc.service
 
 import com.jun.nautilus.domain.AuthManager
+import com.jun.nautilus.domain.Authenticator
 import com.jun.nautilus.domain.UserService
 import com.jun.nautilus.server.mvc.controller.LoginRequest
 import com.jun.nautilus.server.mvc.controller.RegisterRequest
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class AuthService (
+    private val authenticator: Authenticator,
     private val authManager: AuthManager,
     private val userService: UserService,
     private val jwtAuthenticationProvider: JwtAuthenticationProvider
@@ -21,7 +23,7 @@ class AuthService (
 
     @Transactional(readOnly = true)
     fun login(loginRequest: LoginRequest): AuthInfo {
-        if(authManager.login(loginRequest.email,loginRequest.password)){
+        if(authenticator.authenticate(loginRequest.email,loginRequest.password)==Authenticator.Result.Success){
             val userId = userService.findByEmail(loginRequest.email).id
             val accessToken= jwtAuthenticationProvider.createAccessToken( userId )
             return AuthInfo(userId,accessToken)
@@ -34,7 +36,7 @@ class AuthService (
     @Transactional
     fun register(registerRequest: RegisterRequest){
         val id =userService.create(registerRequest.name,registerRequest.email).id
-        authManager.register(id,registerRequest.email,registerRequest.password)
+        authManager.create(id,registerRequest.email,registerRequest.password)
 
 
     }

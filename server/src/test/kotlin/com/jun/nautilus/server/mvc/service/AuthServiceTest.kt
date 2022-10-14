@@ -1,9 +1,6 @@
 package com.jun.nautilus.server.mvc.service
 
-import com.jun.nautilus.domain.AppManager
-import com.jun.nautilus.domain.AuthManager
-import com.jun.nautilus.domain.NotificationManager
-import com.jun.nautilus.domain.UserService
+import com.jun.nautilus.domain.*
 import com.jun.nautilus.server.mvc.security.JwtAuthenticationProvider
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -19,6 +16,9 @@ internal class AuthServiceTest{
     lateinit var authManager: AuthManager
 
     @MockK
+    lateinit var authenticator: Authenticator
+
+    @MockK
     lateinit var userService: UserService
 
     @MockK
@@ -29,7 +29,7 @@ internal class AuthServiceTest{
     @BeforeEach
     fun setUp() {
 
-        sut = AuthService(authManager, userService,jwtAuthenticationProvider)
+        sut = AuthService(authenticator,authManager, userService,jwtAuthenticationProvider)
     }
 
 

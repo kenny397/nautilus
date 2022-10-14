@@ -13,8 +13,8 @@ class DomainConfiguration {
 
 
     @Bean
-    fun authFactory(): AuthFactory{
-        return AuthFactoryImpl()
+    fun authenticator(authRepository: AuthRepository, passwordEncoder: PasswordEncoder): Authenticator{
+        return AuthenticatorImpl(authRepository,passwordEncoder)
     }
 
     @Bean
@@ -29,8 +29,8 @@ class DomainConfiguration {
 
 
     @Bean
-    fun authManager(authFactory: AuthFactory, authRepository: AuthRepository, passwordEncoder: PasswordEncoder): AuthManager{
-        return AuthManagerImpl(authFactory,authRepository,passwordEncoder)
+    fun authManager(authRepository: AuthRepository, passwordEncoder: PasswordEncoder): AuthManager{
+        return AuthManagerImpl(authRepository,passwordEncoder)
     }
 
     @Bean

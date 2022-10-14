@@ -13,10 +13,10 @@ interface AuthRepositoryTest {
         //given
         val authUser = anAuthUser()
         //when
-        val saveAuthUser = sut.save(authUser)
+        sut.save(authUser)
 
         //then
-        assertThat(saveAuthUser).isEqualTo(authUser)
+        assertThat(sut.findByEmail(authUser.email)).isEqualTo(authUser)
     }
 
     @Test

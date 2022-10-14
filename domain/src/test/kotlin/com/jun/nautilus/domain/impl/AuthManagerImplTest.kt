@@ -1,18 +1,18 @@
 package com.jun.nautilus.domain.impl
 
-import com.jun.nautilus.domain.AuthManager
-import com.jun.nautilus.domain.AuthManagerTest
-import com.jun.nautilus.domain.PasswordEncoder
+import com.jun.nautilus.domain.*
 import org.junit.jupiter.api.BeforeEach
 
 class AuthManagerImplTest: AuthManagerTest {
 
     override lateinit var sut: AuthManager
+    override lateinit var authenticator: Authenticator
 
 
     @BeforeEach
     fun setUp(){
-        sut = AuthManagerImpl(AuthFactoryImpl(),AuthRepositoryImpl(),Sha256Encoder())
-
+        val authRepository = AuthRepositoryImpl()
+        sut = AuthManagerImpl(authRepository,Sha256Encoder())
+        authenticator = AuthenticatorImpl(authRepository,Sha256Encoder())
     }
 }
