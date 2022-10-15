@@ -1,7 +1,6 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.*
-import java.security.MessageDigest
+import com.jun.nautilus.auth.*
 
 class AuthManagerImpl(
     private val authRepository: AuthRepository,
@@ -11,7 +10,7 @@ class AuthManagerImpl(
 
 
     override fun create(userId: String, email: String, password: String) {
-        val authUser=AuthUserImpl(userId, email, passwordEncoder.encoding(password))
+        val authUser= AuthUserImpl(userId, email, passwordEncoder.encoding(password))
         authRepository.save(authUser)
     }
 

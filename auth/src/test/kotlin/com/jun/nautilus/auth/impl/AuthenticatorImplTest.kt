@@ -1,10 +1,9 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.AuthManager
-import com.jun.nautilus.domain.AuthRepository
-import com.jun.nautilus.domain.Authenticator
-import com.jun.nautilus.domain.AuthenticatorTest
-import org.junit.jupiter.api.Assertions.*
+import com.jun.nautilus.auth.AuthManager
+import com.jun.nautilus.auth.AuthRepository
+import com.jun.nautilus.auth.Authenticator
+import com.jun.nautilus.auth.AuthenticatorTest
 import org.junit.jupiter.api.BeforeEach
 
 internal class AuthenticatorImplTest: AuthenticatorTest{

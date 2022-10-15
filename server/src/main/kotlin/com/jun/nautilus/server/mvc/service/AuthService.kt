@@ -1,7 +1,7 @@
 package com.jun.nautilus.server.mvc.service
 
-import com.jun.nautilus.domain.AuthManager
-import com.jun.nautilus.domain.Authenticator
+import com.jun.nautilus.auth.AuthManager
+import com.jun.nautilus.auth.Authenticator
 import com.jun.nautilus.domain.UserService
 import com.jun.nautilus.server.mvc.controller.LoginRequest
 import com.jun.nautilus.server.mvc.controller.RegisterRequest

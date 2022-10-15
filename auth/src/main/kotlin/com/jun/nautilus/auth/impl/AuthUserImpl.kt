@@ -1,6 +1,6 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.AuthUser
+import com.jun.nautilus.auth.AuthUser
 
 class AuthUserImpl(override val userId: String,
                    override val email: String,

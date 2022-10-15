@@ -1,6 +1,6 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.*
+import com.jun.nautilus.auth.*
 import org.junit.jupiter.api.BeforeEach
 
 class AuthManagerImplTest: AuthManagerTest {

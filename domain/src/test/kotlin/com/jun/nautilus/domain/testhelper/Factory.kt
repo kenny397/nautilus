@@ -1,7 +1,6 @@
 package com.jun.nautilus.domain.testhelper
 
 import com.jun.nautilus.domain.App
-import com.jun.nautilus.domain.AuthUser
 import com.jun.nautilus.domain.Notification
 import com.jun.nautilus.domain.User
 import io.mockk.coVerify
@@ -37,17 +36,6 @@ private data  class TestUser(
     override val email: String
 ) : User
 
-fun anAuthUser(
-    userId: String = "test",
-    email: String = "jun@jun.corp",
-    password: String = "aaaaaa"
-):AuthUser = TestAuthUser(userId,email, password )
-
-private data class TestAuthUser(
-    override val userId: String,
-    override val email: String,
-    override val password: String
-): AuthUser
 
 fun anNotification(
     id: String = "testAppId",

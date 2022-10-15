@@ -1,4 +1,4 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.auth
 
 /**
  * 인증관련 manager

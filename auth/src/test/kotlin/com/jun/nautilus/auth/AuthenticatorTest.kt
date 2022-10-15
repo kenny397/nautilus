@@ -1,6 +1,5 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.auth
 
-import com.jun.nautilus.domain.testhelper.anAuthUser
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 

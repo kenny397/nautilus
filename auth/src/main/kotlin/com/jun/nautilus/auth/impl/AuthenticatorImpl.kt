@@ -1,8 +1,8 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.AuthRepository
-import com.jun.nautilus.domain.Authenticator
-import com.jun.nautilus.domain.PasswordEncoder
+import com.jun.nautilus.auth.AuthRepository
+import com.jun.nautilus.auth.Authenticator
+import com.jun.nautilus.auth.PasswordEncoder
 
 class AuthenticatorImpl(
     private val authRepository: AuthRepository,

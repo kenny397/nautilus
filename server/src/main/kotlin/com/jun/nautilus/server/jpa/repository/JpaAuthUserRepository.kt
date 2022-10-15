@@ -1,7 +1,7 @@
 package com.jun.nautilus.server.jpa.repository
 
-import com.jun.nautilus.domain.AuthRepository
-import com.jun.nautilus.domain.AuthUser
+import com.jun.nautilus.auth.AuthRepository
+import com.jun.nautilus.auth.AuthUser
 import com.jun.nautilus.server.jpa.entity.AuthUserEntity.Companion.from
 import org.springframework.stereotype.Repository
 

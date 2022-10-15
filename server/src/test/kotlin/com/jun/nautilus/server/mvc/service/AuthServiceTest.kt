@@ -1,5 +1,6 @@
 package com.jun.nautilus.server.mvc.service
 
+import com.jun.nautilus.auth.*
 import com.jun.nautilus.domain.*
 import com.jun.nautilus.server.mvc.security.JwtAuthenticationProvider
 import io.mockk.impl.annotations.MockK

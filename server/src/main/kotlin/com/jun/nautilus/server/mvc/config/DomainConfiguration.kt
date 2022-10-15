@@ -2,6 +2,8 @@ package com.jun.nautilus.server.mvc.config
 
 import com.jun.nautilus.domain.*
 import com.jun.nautilus.domain.impl.*
+import com.jun.nautilus.auth.*
+import com.jun.nautilus.auth.impl.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration

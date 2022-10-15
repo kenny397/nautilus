@@ -1,4 +1,4 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.auth
 
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*

@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.security
 
-import com.jun.nautilus.domain.AuthUser
+import com.jun.nautilus.auth.AuthUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails

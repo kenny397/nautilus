@@ -1,7 +1,7 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.AuthRepository
-import com.jun.nautilus.domain.AuthRepositoryTest
+import com.jun.nautilus.auth.AuthRepository
+import com.jun.nautilus.auth.AuthRepositoryTest
 import org.junit.jupiter.api.BeforeEach
 
 class AuthRepositoryImplTest: AuthRepositoryTest {
