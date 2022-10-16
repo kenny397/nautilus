@@ -1,6 +1,5 @@
 package com.jun.nautilus.domain.impl
 
-import com.jun.nautilus.domain.AppRepository
 import com.jun.nautilus.domain.AppRepositoryTest
 import org.junit.jupiter.api.BeforeEach
 

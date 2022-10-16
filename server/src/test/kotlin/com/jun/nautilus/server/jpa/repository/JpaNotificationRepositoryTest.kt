@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.jpa.repository
 
-import com.jun.nautilus.domain.NotificationRepository
+import com.jun.nautilus.domain.impl.NotificationRepository
 import com.jun.nautilus.domain.NotificationRepositoryTest
 import com.jun.nautilus.domain.testhelper.anApp
 import com.jun.nautilus.domain.testhelper.anUser

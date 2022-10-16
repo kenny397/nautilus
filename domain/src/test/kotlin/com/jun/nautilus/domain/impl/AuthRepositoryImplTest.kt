@@ -1,6 +1,5 @@
 package com.jun.nautilus.domain.impl
 
-import com.jun.nautilus.domain.AuthRepository
 import com.jun.nautilus.domain.AuthRepositoryTest
 import org.junit.jupiter.api.BeforeEach
 

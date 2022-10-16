@@ -1,5 +1,6 @@
 package com.jun.nautilus.domain
 
+import com.jun.nautilus.domain.impl.AuthRepository
 import com.jun.nautilus.domain.testhelper.anAuthUser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,10 +14,10 @@ interface AuthRepositoryTest {
         //given
         val authUser = anAuthUser()
         //when
-        sut.save(authUser)
+        val saveAuthUser = sut.save(authUser)
 
         //then
-        assertThat(sut.findByEmail(authUser.email)).isEqualTo(authUser)
+        assertThat(saveAuthUser).isEqualTo(authUser)
     }
 
     @Test
@@ -30,5 +31,20 @@ interface AuthRepositoryTest {
 
         //then
         assertThat(foundAuthUser).isEqualTo(authUser)
+    }
+
+    @Test
+    fun `userId로 AuthUser를 조회할 수 있다`() {
+        //given
+        val authUser = anAuthUser()
+        sut.save(authUser)
+
+
+        //when
+        val foundAuthUser = sut.findById(authUser.userId)
+
+        //then
+        assertThat(foundAuthUser).isEqualTo(authUser)
+
     }
 }

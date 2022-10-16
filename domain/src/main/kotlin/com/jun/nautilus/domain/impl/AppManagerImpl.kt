@@ -1,7 +1,7 @@
 package com.jun.nautilus.domain.impl
 
-import com.jun.nautilus.domain.*
 
+import com.jun.nautilus.domain.*
 
 class AppManagerImpl(
     private val appIdGenerator: StringIdGenerator,
@@ -27,8 +27,8 @@ class AppManagerImpl(
             ?: throw NoSuchAppException(id + "is not exist")
     }
 
-    override fun remove(id: String) {
-        appRepository.deleteById(id)
+    override fun remove(appId: String) {
+        appRepository.deleteById(appId)
     }
 
     override fun addOwner( appId: String , newOwner: User): App {
@@ -38,8 +38,8 @@ class AppManagerImpl(
             .save()
     }
 
-    override fun findByUser(user: User): List<App> {
-        return appRepository.findByUser(user)
+    override fun findAppsByOwner(user: User): List<App> {
+        return appRepository.findAppsByOwner(user)
     }
     private fun App.toMutable(): MutableApp {
         return MutableAppImpl(this)

@@ -1,7 +1,6 @@
 package com.jun.nautilus.domain.impl
 
 import com.jun.nautilus.domain.User
-import com.jun.nautilus.domain.UserRepository
 
 
 class UserRepositoryImpl: UserRepository {

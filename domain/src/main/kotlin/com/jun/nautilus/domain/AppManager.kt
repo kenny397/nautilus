@@ -34,7 +34,7 @@ interface AppManager {
 
     fun addOwner(appId: String, newOwner: User): App
 
-    fun findByUser(user: User): List<App>
+    fun findAppsByOwner(user: User): List<App>
 
 }
 

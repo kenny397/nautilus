@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.controller
 
-import com.jun.nautilus.domain.Notification
+
 import com.jun.nautilus.server.mvc.controller.view.NotificationInfo
 import com.jun.nautilus.server.mvc.controller.view.NotificationSimpleInfo
 import com.jun.nautilus.server.mvc.service.NotificationService
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.time.Instant
+
 
 
 @RestController
@@ -84,7 +84,7 @@ class NotificationController (private val notificationService: NotificationServi
 data class NotificationCreateRequest(
     val title: String ,
     val content: String,
-    val publishedAt: String,
+    val afterMinutePublished: String,
     val appId: String
 )
 

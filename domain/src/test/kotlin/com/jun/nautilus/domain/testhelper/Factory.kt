@@ -4,10 +4,7 @@ import com.jun.nautilus.domain.App
 import com.jun.nautilus.domain.AuthUser
 import com.jun.nautilus.domain.Notification
 import com.jun.nautilus.domain.User
-import io.mockk.coVerify
 import java.time.Instant
-import java.time.LocalDateTime
-import java.util.UUID
 
 
 
@@ -22,7 +19,7 @@ private data class TestApp(
     override val id: String,
     override val name: String,
     override val owners: Set<User>
-): App
+): App.Base()
 
 
 fun anUser(
@@ -35,7 +32,7 @@ private data  class TestUser(
     override val id: String ,
     override val name: String,
     override val email: String
-) : User
+) : User.Base()
 
 fun anAuthUser(
     userId: String = "test",
@@ -47,13 +44,13 @@ private data class TestAuthUser(
     override val userId: String,
     override val email: String,
     override val password: String
-): AuthUser
+): AuthUser.Base()
 
 fun anNotification(
     id: String = "testAppId",
     title: String = "testTitle",
     content: String = "testContent",
-    publishedAt: Instant = Instant.now(),
+    publishedAt: Instant = Instant.now().minusSeconds(1),
     app: App = anApp(),
     active: Boolean = true
 ): Notification = TestNotification(id,title, content, publishedAt, app, active)
@@ -64,7 +61,7 @@ private data class TestNotification(
     override val publishedAt: Instant,
     override val app: App,
     override val active: Boolean
-): Notification{
+): Notification.Base(){
     override val createdAt: Instant = Instant.now()
 }
 

@@ -1,4 +1,7 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.domain.impl
+
+import com.jun.nautilus.domain.App
+import com.jun.nautilus.domain.Notification
 
 
 /**

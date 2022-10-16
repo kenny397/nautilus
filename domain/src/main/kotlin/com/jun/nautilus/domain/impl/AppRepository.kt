@@ -1,4 +1,7 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.domain.impl
+
+import com.jun.nautilus.domain.App
+import com.jun.nautilus.domain.User
 
 /**
  * 앱 저장소
@@ -20,5 +23,5 @@ interface AppRepository {
      * 앱 삭제
      */
     fun deleteById(appId: String)
-    fun findByUser(user: User): List<App>
+    fun findAppsByOwner(user: User): List<App>
 }

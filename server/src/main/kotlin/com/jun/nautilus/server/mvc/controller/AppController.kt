@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.controller
 
-import com.jun.nautilus.domain.App
+
 import com.jun.nautilus.server.mvc.controller.view.AppInfo
 import com.jun.nautilus.server.mvc.controller.view.AppSimpleInfo
 import com.jun.nautilus.server.mvc.service.AppService
@@ -45,8 +45,8 @@ class AppController(private val appService: AppService) {
     }
 
     @GetMapping("/owner/{userId}")
-    fun findAppByUser(@PathVariable userId: String):ResponseEntity<List<AppSimpleInfo>>{
-        return appService.findByUser(userId)
+    fun findAppsByOwner(@PathVariable userId: String):ResponseEntity<List<AppSimpleInfo>>{
+        return appService.findAppsByOwner(userId)
             .let { ResponseEntity.status(HttpStatus.OK).body(it) }
     }
 

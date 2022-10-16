@@ -1,14 +1,14 @@
 package com.jun.nautilus.server.mvc.controller
 
+
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.jun.nautilus.domain.testhelper.anApp
-import com.jun.nautilus.domain.testhelper.anNotification
-import com.jun.nautilus.domain.testhelper.anUser
+import com.jun.nautilus.server.mvc.controller.view.AppInfo
+import com.jun.nautilus.server.mvc.security.JwtTokenManager
 import com.jun.nautilus.server.mvc.service.AppService
+import com.jun.nautilus.server.mvc.service.AuthService
 import com.ninjasquad.springmockk.MockkBean
-import io.mockk.every
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,14 +16,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.*
+import org.springframework.transaction.annotation.Transactional
+
 
 @ExtendWith(SpringExtension::class)
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class AppControllerTest(
@@ -31,38 +29,67 @@ class AppControllerTest(
     val mockMvc: MockMvc
 )
 {
-    @MockkBean
+    @Autowired
     lateinit var appService: AppService
 
-/*
+    @Autowired
+    lateinit var authService: AuthService
+
+    @Autowired
+    lateinit var jwtTokenManager: JwtTokenManager
+
+    lateinit var accessToken: String
+
+    lateinit var userId: String
+    @BeforeEach
+    fun setUp(){
+        val registerRequest= RegisterRequest("testName", "email@test.com", "password")
+        userId = authService.register(registerRequest)
+        accessToken = jwtTokenManager.createAccessToken(userId)
+    }
+
+    private fun createApp(): AppInfo{
+        val name ="testName"
+        val appReq = AppCreateRequest(name,userId)
+        return appService.create(appReq)
+    }
+
     @Test
     fun `app서비스를 생성하면 201응답한다`() {
         val name ="testName"
-        val userId = "userId"
 
         val appReq = AppCreateRequest(name,userId)
-        every { appService.create(appReq) } returns anApp()
+
         val json = jacksonObjectMapper().registerModule(JavaTimeModule()).writeValueAsString(appReq)
 
 
-        mockMvc.perform(
-            post("/api/apps")
-                .content(json)
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect ( MockMvcResultMatchers.status().isCreated )
+        mockMvc.post("/api/apps"){
+            header("Authorization","Bearer ${accessToken}")
+            content=json
+            contentType= MediaType.APPLICATION_JSON
+        }.andDo {
+            print()
+        }.andExpect {
+            status { isCreated() }
+        }
+
     }
 
     @Test
     fun `app 서비스를 삭제가 성공하면 200응답한다`() {
         //given
-        val appId = "testId"
+        val appInfo = createApp()
 
-        every { appService.delete(appId) }returns Unit
+
         //when
-        mockMvc.perform(
-            delete("/api/apps/${appId}")
-        )
-            .andExpect(status().isOk)
+        mockMvc.delete("/api/apps/${appInfo.appId}") {
+            header("Authorization","Bearer ${accessToken}")
+        }.andDo{
+            print()
+        }.andExpect {
+            status { isOk() }
+        }
+
 
         //then
     }
@@ -70,49 +97,51 @@ class AppControllerTest(
     @Test
     fun `app 서비스의 이름 변경에 성공하면 201응답한다`() {
         //given
-        val appId="testId"
+        val appInfo = createApp()
         val newName ="updateName"
         //when
-        every { appService.updateName(appId,newName) } returns anApp(name = newName)
 
-        mockMvc.perform(
-            put("/api/apps/${appId}/name")
-                .param("newName",newName)
-        ).andExpect(status().isCreated)
-            .andExpect(jsonPath("$.name").value(newName))
-        //then
+
+        mockMvc.put("/api/apps/${appInfo.appId}/name"){
+            header("Authorization","Bearer ${accessToken}")
+            param("newName", newName)
+        }.andDo {
+            print()
+        }.andExpect {
+            status { isCreated() }
+        }
+
+
     }
 
     @Test
     fun `app 서비스에 관리자를 추가에 성공하면 201응답한다`() {
         //given
-        val appId="testAppId"
-        val userId="testUserId"
-
-        every { appService.addOwner(appId,userId) } returns Unit
-
-        mockMvc.perform(
-            put("/api/apps/owner")
-                .param("appId",appId)
-                .param("userId",userId)
-        ).andExpect(status().isCreated)
-
-        //when
-
-        //then
+        val appInfo = createApp()
+        mockMvc.put("/api/apps/owner"){
+            header("Authorization","Bearer ${accessToken}")
+            param("appId",appInfo.appId)
+            param("userId",userId)
+        }.andDo {
+            print()
+        }.andExpect {
+            status { isCreated() }
+        }
     }
 
     @Test
     fun `유저가 가진 app서비스 목록을 조회에 성공하면 200응답한다`() {
-        //given
-        val userId="testUserId"
+        createApp()
 
-        every { appService.findByUser(userId)} returns listOf(anApp())
-        //when
-        mockMvc.perform(
-            get("/api/apps/owner/${userId}")
-        ).andExpect(status().isOk)
-        //then
+        mockMvc.get("/api/apps/owner/${userId}"){
+            header("Authorization","Bearer ${accessToken}")
+        }.andDo {
+            print()
+        }.andExpect {
+            status { isOk() }
+        }
+
+
     }
-*/
+
 }

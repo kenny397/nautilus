@@ -1,6 +1,5 @@
 package com.jun.nautilus.server.jpa.entity
 
-import com.jun.nautilus.domain.App
 import javax.persistence.*
 
 
@@ -21,7 +20,7 @@ class OwnerEntity (
 ){
     override fun equals(other: Any?): Boolean {
         return other is OwnerEntity
-                && other.user == user
+                && other.user.id == user.id
                 && other.appId == appId
     }
 

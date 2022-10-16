@@ -1,6 +1,7 @@
 package com.jun.nautilus.domain
 
 
+import com.jun.nautilus.domain.impl.AppRepository
 import com.jun.nautilus.domain.testhelper.anApp
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -85,7 +86,7 @@ interface NotificationManagerTest {
     fun `노출중지 되어 있는 공지글을 노출 시킬 수 있습니다`() {
         //given
         val app = anApp()
-        val notification = sut.create("testTitle","testContent", Instant.now().minusSeconds(6000), app )
+        val notification = sut.create("testTitle","testContent", Instant.now().minusSeconds(1), app )
         sut.activeOff( notification.id)
 
         //when
@@ -121,15 +122,15 @@ interface NotificationManagerTest {
         //when
         val newTitle="updateTitle"
         val newContent = "updateContent"
-        val newpublishedAt = Instant.MIN
-        val updateRequest=NotificationManager.UpdateRequest(newTitle,newContent,newpublishedAt)
+        val newPublishedAt = Instant.MIN
+        val updateRequest=NotificationManager.UpdateRequest(newTitle,newContent,newPublishedAt)
         sut.update(notification.id,updateRequest)
 
         //then
         val findNotification = sut.findById(notification.id)
         assertThat(findNotification.title).isEqualTo(newTitle)
         assertThat(findNotification.content).isEqualTo(newContent)
-        assertThat(findNotification.publishedAt).isEqualTo(newpublishedAt)
+        assertThat(findNotification.publishedAt).isEqualTo(newPublishedAt)
 
     }
 
@@ -138,15 +139,29 @@ interface NotificationManagerTest {
         //given
         val app = anApp()
         appRepository.save(app)
-        val notification1 = sut.create("testTitle1","testContent1", Instant.now().minusSeconds(5000), app )
-        val notification2 = sut.create("testTitle2","testContent2", Instant.now().plusSeconds(5000), app )
-        val notification3 = sut.create("testTitle3","testContent3", Instant.now().minusSeconds(5000), app )
-
+        val notification1 = sut.create("testTitle1","testContent1", Instant.now().minusSeconds(1), app )
+        val notification2 = sut.create("testTitle2","testContent2", Instant.now().minusSeconds(1), app )
+        val notification3 = sut.create("testTitle3","testContent3", Instant.now().plusSeconds(6000), app )
         //when
         val notifications = sut.findDisplayNotification(app.id)
 
         //then
-        assertThat(notifications).isEqualTo(listOf(notification1,notification3))
+        assertThat(notifications).isEqualTo(listOf(notification1,notification2))
+    }
+
+    @Test
+    fun `앱 객체로 앱에 등록된 공지사항 목록을 조회 할 수 있다`() {
+        //given
+        val app = anApp()
+        appRepository.save(app)
+        val notification1 = sut.create("testTitle1","testContent1", Instant.now().minusSeconds(1), app )
+        val notification2 = sut.create("testTitle2","testContent2", Instant.now().minusSeconds(1), app )
+        val notification3 = sut.create("testTitle3","testContent3", Instant.now().plusSeconds(6000), app )
+        //when
+        val notifications = sut.findDisplayNotification(app)
+
+        assertThat(notifications).isEqualTo(listOf(notification1,notification2))
+
     }
 
 

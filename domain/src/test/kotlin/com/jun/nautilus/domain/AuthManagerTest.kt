@@ -1,6 +1,6 @@
 package com.jun.nautilus.domain
 
-import org.assertj.core.api.Assertions
+
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test
 interface AuthManagerTest {
 
     val sut: AuthManager
-    val authenticator: Authenticator
 
     @Test
     fun `AuthUser객체를 등록한다`() {
@@ -18,12 +17,32 @@ interface AuthManagerTest {
         val password = "asd123"
 
         //when
-        sut.create(userId, email, password)
+        val authUser = sut.register(userId, email, password)
         //then
-        assertThat(authenticator.authenticate(email, password)).isEqualTo(Authenticator.Result.Success)
+        assertThat(authUser.userId).isEqualTo(userId)
 
-
+        assertThat(sut.login(email, password)).isTrue
 
     }
 
+
+    @Test
+    fun `이메일 과 패스워드를 통해 로그인을 할 수 있습니다`() {
+        //given
+        val id = "dummyId"
+        val email = "kenny397@jun.corp"
+        val password = "asd123"
+        sut.register(id,email,password)
+
+
+        //when
+
+
+        val result = sut.login(email,password)
+
+        //then
+
+
+        assertThat(result).isTrue
+    }
 }

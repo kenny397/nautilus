@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         mavenCentral()
-       
+
     }
 }
 
@@ -13,7 +13,8 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
     kotlin("jvm") version "1.6.21" apply false
     kotlin("plugin.spring") version "1.6.21" apply false
-    id ("org.sonarqube" ) version "3.4.0.2513"
+ 
+
     /**
      * jpa 관련 plugin
      */
@@ -21,12 +22,10 @@ plugins {
     id ("org.jetbrains.kotlin.plugin.noarg") version "1.5.21" apply false
     id ("org.jetbrains.kotlin.plugin.allopen") version "1.5.21" apply false
 
-    id("com.google.cloud.tools.jib") version "3.2.1" apply false
+ 
 
     
 }
-
-
 
 
 allprojects {
@@ -48,6 +47,7 @@ allprojects {
         }
         tasks.withType<Test> {
             useJUnitPlatform()
+
         }
     }
 }
@@ -55,13 +55,13 @@ allprojects {
 subprojects {
     repositories {
         mavenCentral()
-
     }
 
     apply {
         plugin("io.spring.dependency-management")
-    }
 
+
+    }
 
 
 }

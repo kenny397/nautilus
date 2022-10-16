@@ -1,72 +1,42 @@
 package com.jun.nautilus.server.mvc.security
 
-
-import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.JwtException
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
-import java.time.Instant
-import java.util.*
 
 @Component
-class JwtAuthenticationProvider(private val userDetailsService: UserDetailsService) {
-
-    private var SECRET = "kenny"
-
-    init {
-        SECRET = Base64.getEncoder().encodeToString(SECRET.toByteArray())
-    }
-
-
-    fun createAccessToken(userId: String): String {
-        val duration: Long = 1
-        return Jwts.builder()
-            .setSubject("accessToken")
-            .claim("userId",userId)
-            .setIssuedAt(Date.from(Instant.now()))
-            .setExpiration(Date.from(Instant.now().plusSeconds(duration)))
-            .signWith(SignatureAlgorithm.HS256, SECRET)
-            .compact()
-    }
-
-
-    fun verifyToken(token: String): Boolean {
-        return try {
-            val claims = getAllClaims(token)
-            val expiration = claims.expiration
-            println(expiration)
-            expiration.after(Date())
+class JwtAuthenticationProvider constructor(
+    @Autowired
+    private val jwtTokenManager: JwtTokenManager,
+    @Autowired
+    private val userDetailsService: UserDetailsService
+): AuthenticationProvider {
+    override fun authenticate(authentication: Authentication?): Authentication? {
+        if (authentication !is JwtAuthenticationRequest) {
+            return null
         }
-        catch (e: ExpiredJwtException) {
-            false
-        }catch (e: JwtException) {
-            false
-        } catch (e: IllegalArgumentException) {
-            false
+        try{
+            val verification=jwtTokenManager.verifyToken(authentication.jwt)
+            if(verification.type==TokenType.Refresh){
+                throw BadCredentialsException("잘못된 토큰 정보입니다")
+            }
+            val userDetails = userDetailsService.loadUserByUsername(verification.userId)
+            return JwtAuthenticationResult(userDetails,authentication.jwt)
+        }
+        catch (e: ExpiredJwtException){
+            throw BadCredentialsException("토큰이 만료되었습니다")
+        }
+        catch (e: InvalidAuthTokenException){
+            throw BadCredentialsException("token 이 문제가 있습니다.")
         }
     }
 
-    // Claim 조회
-    fun getTokenInfo(token: String, key: String ): Any? {
-        val claims: Claims = getAllClaims(token)
-        return claims[key]
-    }
-    fun getAuthentication(userId: String): Authentication {
-        val userDetails = userDetailsService.loadUserByUsername(userId)
-        return UsernamePasswordAuthenticationToken(userDetails,null,userDetails.authorities)
-    }
-
-
-    private fun getAllClaims(token: String): Claims {
-        return Jwts.parser()
-            .setSigningKey(SECRET)
-            .parseClaimsJws(token).body
-
-
+    override fun supports(authentication: Class<*>?): Boolean {
+        return JwtAuthenticationRequest::class.java.isAssignableFrom(authentication)
     }
 }

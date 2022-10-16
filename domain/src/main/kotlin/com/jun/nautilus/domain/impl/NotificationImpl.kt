@@ -9,7 +9,7 @@ class  NotificationImpl(
     override val title: String,
     override val content: String,
     override val publishedAt: Instant = Instant.now(),
-    override val app: App,
+    override val app: com.jun.nautilus.domain.App,
     override val createdAt: Instant,
     override val active: Boolean
 ) : Notification.Base() {

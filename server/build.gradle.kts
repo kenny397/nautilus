@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.allopen")
     kotlin("jvm")
     kotlin("plugin.spring")
-    id("com.google.cloud.tools.jib")
+
 }
 
 
@@ -19,7 +19,6 @@ allOpen {
 noArg {
     annotation("javax.persistence.Entity")
 }
-
 
 
 dependencies {

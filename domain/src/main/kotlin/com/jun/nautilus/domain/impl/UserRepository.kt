@@ -1,4 +1,6 @@
-package com.jun.nautilus.domain
+package com.jun.nautilus.domain.impl
+
+import com.jun.nautilus.domain.User
 
 
 /**

@@ -1,14 +1,15 @@
 package com.jun.nautilus.domain
 
 
+import com.jun.nautilus.domain.impl.NotificationRepository
+import com.jun.nautilus.domain.testhelper.anApp
 import com.jun.nautilus.domain.testhelper.anNotification
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.time.Instant
 
 interface NotificationRepositoryTest {
 
-    // system under test.
+
     val sut: NotificationRepository
 
 
@@ -32,7 +33,7 @@ interface NotificationRepositoryTest {
         val notification1 = anNotification(id = id, title = "original title")
         sut.save(notification1)
 
-        // when 
+        // when
         val notification2 = anNotification(id = id, title = "new title")
         sut.save(notification2)
 
@@ -69,24 +70,41 @@ interface NotificationRepositoryTest {
         assertThat(foundNotification).isNull()
     }
 
+    @Test
+    fun `앱을 통해 노출되어 있는 공지사항을 조회 할 수 있다`(){
+        //given
+        val app = anApp()
 
+        val notification1 = anNotification(id = "dummyId1", title = "original title", app = app)
+        sut.save(notification1)
+        val notification2 = anNotification(id = "dummyId2", title = "new title", app = app)
+        sut.save(notification2)
+        //when
+        val foundNotifications = sut.findDisplayNotificationByApp(app)
 
-    /* kotlin extends
-    private fun Notification.copy(
-        id: String = this.id,
-        title: String = this.title,
-        content: String = this.content,
-        createdAt: Instant = this.createdAt,
-        publishedAt: Instant= this.publishedAt,
-        app: App = this.app
-    ): Notification = object : Notification {
-        override val id: String = id
-        override val title: String = title
-        override val content: String = content
-        override val createdAt: Instant = createdAt
-        override val publishedAt: Instant = publishedAt
-        override val app: App = app
+        //then
+        assertThat(foundNotifications.size).isEqualTo(2)
     }
-    */
+
+    @Test
+    fun `앱id를 통해 노출되어 있는 공지사항을 조회 할 수 있다`(){
+        //given
+        val app = anApp()
+
+        val notification1 = anNotification(id = "dummyId1", title = "original title", app = app)
+        sut.save(notification1)
+        val notification2 = anNotification(id = "dummyId2", title = "new title", app = app)
+        sut.save(notification2)
+        //when
+        val foundNotifications = sut.findDisplayNotificationByApp(app.id)
+
+        //then
+        assertThat(foundNotifications.size).isEqualTo(2)
+    }
+
+
+
+
+
 
 }

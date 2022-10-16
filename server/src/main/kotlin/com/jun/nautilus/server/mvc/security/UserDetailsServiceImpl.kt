@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.security
 
-import com.jun.nautilus.domain.AuthRepository
+import com.jun.nautilus.domain.impl.AuthRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException

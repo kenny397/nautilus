@@ -1,7 +1,7 @@
 package com.jun.nautilus.domain
 
 import java.time.Instant
-import java.time.LocalDateTime
+
 
 /**
  * 공지 도메인

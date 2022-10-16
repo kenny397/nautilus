@@ -77,7 +77,7 @@ interface AppManagerTest {
         val app2 = sut.create("testName2", user1)
 
         //when
-        val findList=sut.findByUser(user1)
+        val findList=sut.findAppsByOwner(user1)
 
         //then
         assertThat(findList).isEqualTo(listOf(app1,app2))

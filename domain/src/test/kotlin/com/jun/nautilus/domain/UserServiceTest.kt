@@ -1,16 +1,10 @@
 package com.jun.nautilus.domain
 
-import com.jun.nautilus.domain.impl.UserRepositoryImpl
-import io.mockk.every
-import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
-import io.mockk.mockk
-import io.mockk.verify
-import org.assertj.core.api.Assertions
+
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
+
 
 interface UserServiceTest {
 
@@ -59,12 +53,11 @@ interface UserServiceTest {
     fun `유저를 생성할 때 이메일 양식이 아니면 IllegalArgumentException을 던진다`() {
         //given
         val name = "test"
-        val email = "test.test.notEmail"
-
+        val notEmail = "test.test.notEmail"
         //when
 
         //then
-        assertThrows<IllegalArgumentException>{sut.create(name,email)}
+        assertThrows<IllegalArgumentException>{sut.create(name,notEmail)}
     }
 
     @Test

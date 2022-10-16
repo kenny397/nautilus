@@ -25,7 +25,7 @@ data class AppInfo(
     val ownerCount: Int
 ){
     companion object{
-        fun from(app: App): AppInfo =
+        fun from(app: com.jun.nautilus.domain.App): AppInfo =
             AppInfo(
                 appId = app.id,
                 name = app.name,
@@ -40,7 +40,7 @@ data class AppSimpleInfo(
     val owners: List<UserSimpleInfo>
 ){
     companion object{
-        fun from(app: App): AppSimpleInfo =
+        fun from(app: com.jun.nautilus.domain.App): AppSimpleInfo =
             AppSimpleInfo(
                 appId = app.id,
                 name = app.name,
@@ -85,6 +85,9 @@ data class NotificationSimpleInfo(
 
 data class AuthInfo(
     val userId: String,
-    val accessToken: String
+    val userName: String,
+    val accessToken: String,
+    val refreshToken: String,
 ){
 }
+

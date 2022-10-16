@@ -20,7 +20,7 @@ interface User {
      */
     val name: String
 
-    //vaild 중복체크가 필요
+
     val email: String
 
 
