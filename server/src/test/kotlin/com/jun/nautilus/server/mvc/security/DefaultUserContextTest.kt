@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.security
 
-import com.jun.nautilus.domain.testhelper.anAuthUser
+import com.jun.nautilus.auth.testhelper.anAuthUser
 import com.jun.nautilus.server.mvc.service.UserContext
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test

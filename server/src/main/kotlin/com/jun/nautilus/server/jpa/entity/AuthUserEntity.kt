@@ -1,7 +1,7 @@
 package com.jun.nautilus.server.jpa.entity
 
-import com.jun.nautilus.domain.AuthUser
-import com.jun.nautilus.domain.impl.AuthUserImpl
+import com.jun.nautilus.auth.AuthUser
+import com.jun.nautilus.auth.impl.AuthUserImpl
 import javax.persistence.Entity
 import javax.persistence.Id
 
