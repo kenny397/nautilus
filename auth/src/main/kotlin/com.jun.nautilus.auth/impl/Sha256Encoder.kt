@@ -1,6 +1,6 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.PasswordEncoder
+import com.jun.nautilus.auth.PasswordEncoder
 import java.security.MessageDigest
 
 class Sha256Encoder: PasswordEncoder {
