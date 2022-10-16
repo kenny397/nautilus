@@ -1,14 +1,13 @@
-package com.jun.nautilus.domain.impl
+package com.jun.nautilus.auth.impl
 
-import com.jun.nautilus.domain.AuthUser
+import com.jun.nautilus.auth.AuthUser
 
 class AuthRepositoryImpl: AuthRepository {
 
     private val authUsers: MutableList<AuthUser> = mutableListOf()
 
-    override fun save(authUser: AuthUser): AuthUser {
+    override fun save(authUser: AuthUser) {
         authUsers.add(authUser)
-        return authUser
     }
 
     override fun findByEmail(email: String): AuthUser? {

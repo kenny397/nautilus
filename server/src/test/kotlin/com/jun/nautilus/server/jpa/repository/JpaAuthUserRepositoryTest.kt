@@ -1,7 +1,7 @@
 package com.jun.nautilus.server.jpa.repository
 
-import com.jun.nautilus.domain.impl.AuthRepository
-import com.jun.nautilus.domain.AuthRepositoryTest
+import com.jun.nautilus.auth.impl.AuthRepository
+import com.jun.nautilus.auth.AuthRepositoryTest
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest

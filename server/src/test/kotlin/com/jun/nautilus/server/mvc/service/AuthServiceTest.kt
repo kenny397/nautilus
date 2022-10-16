@@ -1,7 +1,8 @@
 package com.jun.nautilus.server.mvc.service
 
 
-import com.jun.nautilus.domain.AuthManager
+import com.jun.nautilus.auth.AuthManager
+import com.jun.nautilus.auth.Authenticator
 import com.jun.nautilus.domain.UserService
 import com.jun.nautilus.server.mvc.controller.LoginRequest
 import com.jun.nautilus.server.mvc.security.JwtTokenManager
@@ -20,6 +21,9 @@ internal class AuthServiceTest{
     lateinit var authManager: AuthManager
 
     @MockK
+    lateinit var authenticator: Authenticator
+
+    @MockK
     lateinit var userService: UserService
 
     @MockK
@@ -30,7 +34,7 @@ internal class AuthServiceTest{
     @BeforeEach
     fun setUp() {
 
-        sut = AuthService(authManager, userService,jwtAuthenticationProvider)
+        sut = AuthService(authManager,authenticator, userService,jwtAuthenticationProvider)
     }
 
     @Test
@@ -38,7 +42,7 @@ internal class AuthServiceTest{
         //given
         val loginRequest= LoginRequest("test@test.com","test")
 
-        every { authManager.login(loginRequest.email,loginRequest.password) }returns false
+        every { authenticator.authenticate(loginRequest.email,loginRequest.password) }returns Authenticator.Result.Failed
 
         //when
         assertThrows<IllegalArgumentException> { sut.login(loginRequest) }
