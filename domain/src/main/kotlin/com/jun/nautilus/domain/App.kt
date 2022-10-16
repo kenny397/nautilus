@@ -1,7 +1,5 @@
 package com.jun.nautilus.domain
 
-import java.time.LocalDateTime
-
 /**
  * 앱 도메인
  *

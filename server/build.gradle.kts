@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.allopen")
     kotlin("jvm")
     kotlin("plugin.spring")
-    id("com.google.cloud.tools.jib")
+
 }
 
 
@@ -21,10 +21,9 @@ noArg {
 }
 
 
-
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":auth"))
+
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework.boot:spring-boot-starter")
@@ -45,5 +44,4 @@ dependencies {
     testImplementation("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(project(path = ":domain", configuration = "tests"))
-    testImplementation(project(path = ":auth", configuration = "tests"))
 }

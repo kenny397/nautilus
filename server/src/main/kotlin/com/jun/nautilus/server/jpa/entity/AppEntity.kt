@@ -17,7 +17,7 @@ class AppEntity (
     val owners: MutableSet<OwnerEntity> = mutableSetOf()
 
 ){
-    fun toModel(): App {
+    fun toModel(): com.jun.nautilus.domain.App {
         return AppImpl(
             id = id,
             name = name,
@@ -25,7 +25,7 @@ class AppEntity (
         )
     }
     companion object{
-        fun from(app: App): AppEntity {
+        fun from(app: com.jun.nautilus.domain.App): AppEntity {
             return AppEntity(
                 id = app.id,
                 name = app.name,
@@ -33,12 +33,5 @@ class AppEntity (
             )
         }
     }
-    override fun equals(other: Any?): Boolean {
-        return other is AppEntity
-                && other.id == id
-    }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
 }

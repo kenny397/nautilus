@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.mvc.security
 
-import com.jun.nautilus.auth.AuthUser
+import com.jun.nautilus.domain.AuthUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
@@ -10,23 +10,16 @@ class UserDetailsImpl(private val authUser: AuthUser): UserDetails {
         return AuthorityUtils.createAuthorityList()
     }
 
-    override fun getPassword(): String = authUser.password
+    override fun getPassword(): String? = null
 
     override fun getUsername(): String = authUser.userId
 
-    override fun isAccountNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isAccountNonExpired(): Boolean = true
 
-    override fun isAccountNonLocked(): Boolean {
-        TODO("Not yet implemented")
-    }
 
-    override fun isCredentialsNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isAccountNonLocked(): Boolean = true
 
-    override fun isEnabled(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isCredentialsNonExpired(): Boolean = true
+
+    override fun isEnabled(): Boolean = true
 }

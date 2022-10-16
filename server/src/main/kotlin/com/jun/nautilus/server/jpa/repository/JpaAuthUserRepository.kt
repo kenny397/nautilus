@@ -1,7 +1,7 @@
 package com.jun.nautilus.server.jpa.repository
 
-import com.jun.nautilus.auth.AuthRepository
-import com.jun.nautilus.auth.AuthUser
+import com.jun.nautilus.domain.impl.AuthRepository
+import com.jun.nautilus.domain.AuthUser
 import com.jun.nautilus.server.jpa.entity.AuthUserEntity.Companion.from
 import org.springframework.stereotype.Repository
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository
 class JpaAuthUserRepository(
     private val authUserEntityRepository: AuthUserEntityRepository
 ): AuthRepository {
-    override fun save(authUser: AuthUser) {
-        authUserEntityRepository.save(from(authUser)).toModel()
+    override fun save(authUser: AuthUser): AuthUser {
+        return authUserEntityRepository.save(from(authUser)).toModel()
     }
 
     override fun findByEmail(email: String): AuthUser? {

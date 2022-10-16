@@ -2,8 +2,8 @@ package com.jun.nautilus.domain
 
 
 
+import com.jun.nautilus.domain.impl.UserRepository
 import com.jun.nautilus.domain.testhelper.anUser
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -44,7 +44,7 @@ interface UserRepositoryTest {
     fun `유저 id로 유저 단건을 삭제할 수 있다`(){
         //given
         val user = anUser()
-        val saveUser = sut.save(user)
+        sut.save(user)
 
         //when
         sut.deleteById(user.id)

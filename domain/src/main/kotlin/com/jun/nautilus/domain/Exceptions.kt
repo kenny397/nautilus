@@ -10,7 +10,6 @@ open class AppException(message: String?, cause: Throwable?): RuntimeException(m
 
 class NoSuchAppException(message: String?, cause: Throwable? = null): AppException(message, cause)
 
-class NoAppOwnerException(message: String?,cause: Throwable? = null): AppException(message,cause)
 
 open class NotificationException(message: String?, cause: Throwable?): RuntimeException(message, cause)
 

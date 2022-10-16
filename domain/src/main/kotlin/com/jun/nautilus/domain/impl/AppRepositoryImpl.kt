@@ -1,7 +1,6 @@
 package com.jun.nautilus.domain.impl
 
 import com.jun.nautilus.domain.App
-import com.jun.nautilus.domain.AppRepository
 import com.jun.nautilus.domain.User
 
 class AppRepositoryImpl: AppRepository {
@@ -21,7 +20,7 @@ class AppRepositoryImpl: AppRepository {
             }
     }
 
-    override fun findById(appId: String):App? {
+    override fun findById(appId: String): App? {
         return apps.find { it.id == appId }
     }
 
@@ -29,7 +28,7 @@ class AppRepositoryImpl: AppRepository {
         apps.removeIf { it.id == id }
     }
 
-    override fun findByUser(user: User): List<App> {
+    override fun findAppsByOwner(user: User): List<App> {
         return apps.filter { it.owners.find { o -> o.id == user.id } !=null }
     }
 }

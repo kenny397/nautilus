@@ -11,7 +11,6 @@ interface NotificationManager {
     /**
      * 공지사항 생성
      *
-     * TODO 시간 타입 가나다라. Instant, unix epoch
      */
     fun create(title: String, content: String, publishedAt: Instant, app: App): Notification
 
@@ -39,7 +38,6 @@ interface NotificationManager {
     fun updateContent(notificationId: String, newContent: String): Notification
 
 
-
     fun update(notificationId: String, request: UpdateRequest): Notification
 
 
@@ -65,6 +63,7 @@ interface NotificationManager {
      */
     fun findDisplayNotification(appId: String): List<Notification>
 
+    fun findDisplayNotification(app: App): List<Notification>
 
     data class UpdateRequest(
         val title: String? = null,

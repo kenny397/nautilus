@@ -1,7 +1,9 @@
 package com.jun.nautilus.domain
 
 
+import com.jun.nautilus.domain.impl.AppRepository
 import com.jun.nautilus.domain.testhelper.anApp
+import com.jun.nautilus.domain.testhelper.anUser
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -65,6 +67,22 @@ interface AppRepositoryTest {
         //then
         val foundApp = sut.findById(app.id)
         assertThat(foundApp).isNull()
+    }
+
+    @Test
+    fun `유저가 관리하고 있는 앱을 조회할 수 있다`() {
+        //given
+        val user = anUser()
+        val app1 = anApp(id = "test1", owners = setOf(user))
+        sut.save(app1)
+        val app2 = anApp(id = "test2", owners = setOf(user))
+        sut.save(app2)
+
+        //when
+        val foundApps = sut.findAppsByOwner(user)
+
+        //then
+        assertThat(foundApps.size).isEqualTo(2)
     }
 
 }

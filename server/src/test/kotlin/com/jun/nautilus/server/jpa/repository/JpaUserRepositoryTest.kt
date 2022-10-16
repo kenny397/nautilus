@@ -1,6 +1,6 @@
 package com.jun.nautilus.server.jpa.repository
 
-import com.jun.nautilus.domain.UserRepository
+import com.jun.nautilus.domain.impl.UserRepository
 import com.jun.nautilus.domain.UserRepositoryTest
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired

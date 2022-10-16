@@ -92,6 +92,13 @@ class NotificationManagerImpl(
         return notificationRepository.findDisplayNotificationByApp(appId)
     }
 
+    override fun findDisplayNotification(app: App): List<Notification> {
+
+        return notificationRepository.findDisplayNotificationByApp(app)
+    }
+
+
+
     private fun Notification.toMutable(): MutableNotification{
         return MutableNotificationImpl(this)
     }

@@ -6,7 +6,7 @@ import com.jun.nautilus.domain.impl.UserImpl
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
-import javax.persistence.Table
+
 
 
 @Entity(name = "users")
@@ -33,12 +33,5 @@ class UserEntity (
             )
         }
     }
-    override fun equals(other: Any?): Boolean {
-        return other is UserEntity
-                && other.id == id
-    }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
 }

@@ -1,7 +1,6 @@
 package com.jun.nautilus.domain.impl
 
 import com.jun.nautilus.domain.*
-import java.util.regex.Pattern
 
 class UserServiceImpl(
     private val userIdGenerator: StringIdGenerator,
@@ -33,16 +32,9 @@ class UserServiceImpl(
     }
 
     private fun emailValid(email: String): Boolean{
-        val emailRegex = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
-        )
-        return emailRegex.matcher(email).matches()
+        val emailRegex = ("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        return emailRegex.toPattern().matcher(email).matches()
     }
 
     private fun exists(email: String): Boolean{

@@ -2,23 +2,19 @@ package com.jun.nautilus.domain
 
 
 import com.jun.nautilus.domain.testhelper.anNotification
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.time.Clock
 import java.time.Instant
-import java.util.UUID
 
 class NotificationTest {
 
 
     @Test
     fun `공지사항이 노출여부를 확인합니다`() {
-        //given
-        val notification1 = anNotification(id="test1",publishedAt = Instant.now().minusSeconds(6000))
-        val notification2 = anNotification(id="test2",publishedAt = Instant.now().plusSeconds(6000))
-        val notification3 = anNotification(id="test3",publishedAt = Instant.now().minusSeconds(6000), active = true)
-        val notification4 = anNotification(id="test4",publishedAt = Instant.now(), active = false)
+        val notification1 = anNotification(publishedAt = Instant.now().minusSeconds(6000))
+        val notification2 = anNotification(publishedAt = Instant.now().plusSeconds(6000))
+        val notification3 = anNotification(publishedAt = Instant.now().minusSeconds(1), active = true)
+        val notification4 = anNotification(publishedAt = Instant.now().minusSeconds(1), active = false)
 
 
         //when
@@ -32,12 +28,13 @@ class NotificationTest {
     }
 
     @Test
-    fun `공지사항 id가 같으면 같은 공지사항입니다`() {
+    fun `공지사항이 같으면 같은 공지사항입니다`() {
         //given
         val id1 = "1"
         val id2 = "2"
         val notification1 = anNotification(id = id1)
         val notification2 = anNotification(id = id2)
+
 
         //when
 
@@ -47,5 +44,7 @@ class NotificationTest {
 
         assertThat(notification2.id).isNotEqualTo(notification1.id)
         assertThat(notification2).isNotEqualTo(notification1)
+
+
     }
 }
